@@ -1,0 +1,11 @@
+awx_api_url: "http://172.21.235.46/api/v2"
+awx_api_token: "SEU_TOKEN_AQUI"
+new_username: "novo_admin"
+new_password: "NovaSenha123"
+
+email_smtp_host: "smtp.gmail.com"
+email_smtp_port: 587
+email_smtp_user: "seu_email@gmail.com"
+email_smtp_password: "sua_senha"
+email_to: "admin@exemplo.com"
+email_from: "AWX <seu_email@gmail.com>"

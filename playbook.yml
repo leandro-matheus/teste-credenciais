@@ -1,0 +1,6 @@
+---
+- name: Gerenciar Credenciais do AWX
+  hosts: localhost
+  gather_facts: no
+  roles:
+    - awx_manage_credentials

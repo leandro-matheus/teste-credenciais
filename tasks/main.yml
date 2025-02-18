@@ -1,0 +1,33 @@
+---
+- name: Autenticar no AWX e obter token
+  uri:
+    url: "{{ awx_api_url }}/tokens/"
+    method: POST
+    body_format: json
+    headers:
+      Authorization: "Bearer {{ awx_api_token }}"
+  register: awx_token
+  no_log: true
+
+- name: Alterar credenciais do usuário admin
+  uri:
+    url: "{{ awx_api_url }}/users/1/"
+    method: PATCH
+    headers:
+      Authorization: "Bearer {{ awx_token.json.token }}"
+    body_format: json
+    body:
+      username: "{{ new_username }}"
+      password: "{{ new_password }}"
+  no_log: true
+
+- name: Enviar e-mail de notificação
+  mail:
+    host: "{{ email_smtp_host }}"
+    port: "{{ email_smtp_port }}"
+    username: "{{ email_smtp_user }}"
+    password: "{{ email_smtp_password }}"
+    to: "{{ email_to }}"
+    subject: "Alteração de Credenciais do AWX"
+    body: "{{ lookup('template', 'templates/email_template.j2') }}"
+    from: "{{ email_from }}"
